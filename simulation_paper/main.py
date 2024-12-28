@@ -30,9 +30,10 @@ if __name__ == '__main__':
     sim_res = np.array(sim_result).transpose(2,1,0)
 
 
-    total_res = []
+    total_res = [list(psimulator.data_u[1].keys())]
 
     total_sims = sim_res.shape[2]
+
     for i in range(sim_res.shape[0]): # iterate for dmus
         tmp_res = []
         for j in range(sim_res.shape[1]): # iterate over gamma
@@ -42,6 +43,6 @@ if __name__ == '__main__':
 
 
     final_res = np.array(total_res).transpose(1,0)
-    pd.DataFrame(final_res).to_csv('./results/' + str(data_size) + '_newpaper_final.csv')
-    average = final_res.sum(axis=1)/psimulator.num_dmus
-    pd.DataFrame(average).to_csv('./results/' + str(data_size) + '_newpaper_average.csv')
+    pd.DataFrame(final_res).to_csv('./results/' + str(data_size) + '_newpaper_final.csv', index=False)
+    average = final_res[:,1:].sum(axis=1)/psimulator.num_dmus
+    pd.DataFrame(average).to_csv('./results/' + str(data_size) + '_newpaper_average.csv', index=False) 

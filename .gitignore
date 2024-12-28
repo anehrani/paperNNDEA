@@ -1,0 +1,11 @@
+
+# data files
+
+results/
+data/
+
+
+# envs
+.vscode/
+.venv/
+

@@ -47,21 +47,10 @@ class simulator:
             dmu_rank_in_gamma_gen = self.rank_dmus(produced[i])
             ranked_generated_data.update({round(self.data_real.iloc[i][0],2): dmu_rank_in_gamma_gen })
 
-        gama_comp = []
-        for (gamma, ranked_s) in self.ranked_ground_truth.items():
-            # assuming there are only 5 dmus
-            dmu_rank_compare = []
-            for (dmu, rank) in ranked_s.items():
-                if rank == ranked_generated_data[gamma][dmu]:
-                    dmu_rank_compare.append(1)
-                else:
-                    dmu_rank_compare.append(0)
-
-
-            gama_comp.append(dmu_rank_compare)
-
-
-        return gama_comp
+        return [
+            [1 if rank == ranked_generated_data[gamma][dmu] else 0 for dmu, rank in ranked_s.items()]
+            for gamma, ranked_s in self.ranked_ground_truth.items()
+        ]
 
 
     def generate_random_inputs(self):
